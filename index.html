@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- TÍTULO OPTIMIZADO PARA GOOGLE Y SEO -->
-    <title id="page-title">JC Records & Adonay TV | Estudio de Grabación en Lomas de Zamora</title>
+    <title id="page-title">JC Multimedios, Adonay TV & JC Records | Lomas de Zamora</title>
     
     <!-- DESCRIPCIÓN PARA MOTORES DE BÚSQUEDA (GOOGLE) -->
-    <meta name="description" content="JC Records y Adonay TV en Lomas de Zamora. Estudio de grabación profesional, producción musical, clases de guitarra, teclado, bajo y transmisiones en vivo Full HD.">
-    <meta name="keywords" content="JC Records, Adonay TV, estudio de grabación Lomas de Zamora, producción musical, clases de música, streaming en vivo">
+    <meta name="description" content="JC Multimedios y Adonay TV en Lomas de Zamora y San Vicente. Producción integral, radio, televisión, streaming y JC Records con más de 30 años de trayectoria.">
+    <meta name="keywords" content="JC Multimedios, Adonay TV, JC Records, Lomas de Zamora, San Vicente, estudio de grabación, producción musical, streaming, radio">
     
     <!-- Favicon -->
     <link rel="icon" href="https://i.imgur.com/nTo5JSD.jpeg" type="image/jpeg">
@@ -120,7 +120,7 @@
         .stream-section {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .audio-notice {
@@ -176,6 +176,121 @@
             width: 100%;
             height: 100%;
             border: 0;
+        }
+
+        /* CHAT PROPIO UBICADO DEBAJO DEL REPRODUCTOR */
+        .chat-container {
+            background: var(--panel-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 350px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .chat-header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--panel-border);
+            font-weight: bold;
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(15, 15, 15, 0.6);
+        }
+
+        .chat-msg {
+            background: rgba(30, 30, 30, 0.8);
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .chat-msg.admin {
+            border-left-color: #25d366;
+            background: rgba(20, 50, 30, 0.6);
+        }
+
+        .chat-msg .author {
+            font-weight: bold;
+            color: var(--accent-color);
+            margin-right: 5px;
+        }
+
+        .chat-msg.admin .author {
+            color: #25d366;
+        }
+
+        .chat-msg .text {
+            color: var(--text-color);
+        }
+
+        .chat-footer {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border-top: 1px solid var(--panel-border);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .chat-input-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .chat-input {
+            flex: 1;
+            background: #222;
+            border: 1px solid #555;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .chat-input:focus {
+            border-color: var(--accent-color);
+        }
+
+        .chat-btn {
+            background: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .chat-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .user-setup {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
 
         .stream-title {
@@ -250,21 +365,6 @@
             border-color: var(--accent-color);
         }
 
-        .program-container {
-            width: 100%;
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 15px;
-            border: 1px solid var(--panel-border);
-        }
-
-        .program-container img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-        }
-
         .btn-whatsapp {
             display: block;
             width: 100%;
@@ -283,6 +383,30 @@
         .btn-whatsapp:hover {
             background-color: #20ba5a;
             transform: scale(1.02);
+        }
+
+        /* WIDGET DESTACADO DE JC RECORDS EN LA BARRA LATERAL */
+        .sidebar-promo {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url('https://i.imgur.com/JZvYpGB.jpeg') no-repeat center center;
+            background-size: cover;
+            border: 1px solid var(--accent-color);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+        }
+
+        .sidebar-promo h4 {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .sidebar-promo p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
         }
 
         .jc-container {
@@ -401,7 +525,7 @@
     </header>
 
     <main>
-        <!-- SECCIÓN 1: INICIO (CANAL DE TV EN VIVO) -->
+        <!-- SECCIÓN 1: INICIO -->
         <div id="tab-inicio" class="tab-content active">
             <section class="stream-section">
                 <div class="audio-notice">
@@ -409,28 +533,60 @@
                     <button class="btn-unmute" id="unmuteBtn">🔊 Activar Sonido</button>
                 </div>
 
+                <!-- REPRODUCTOR DE VIDEO A TODO EL ANCHO -->
                 <div class="video-container">
                     <iframe id="kickPlayer" src="https://player.kick.com/adonaytv?muted=false" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay"></iframe>
                 </div>
+
                 <div class="stream-title">
                     <span class="live-badge">EN VIVO</span> Transmisión Oficial Adonay TV
+                </div>
+
+                <!-- CHAT PROPIO UBICADO EN LA PARTE INFERIOR DEL REPRODUCTOR -->
+                <div class="chat-container">
+                    <div class="chat-header">
+                        💬 Chat en Vivo - Dejanos tu mensaje
+                    </div>
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="chat-msg admin">
+                            <span class="author">Adonay TV:</span>
+                            <span class="text">¡Bienvenidos a la transmisión oficial! Escribí tu nombre y dejanos tu saludo en el chat.</span>
+                        </div>
+                    </div>
+                    <div class="chat-footer">
+                        <div class="user-setup" id="userSetup">
+                            <span>Tu Nombre:</span>
+                            <input type="text" id="chatNameInput" class="chat-input" placeholder="Ej: Juan Pérez" maxlength="20">
+                            <button class="chat-btn" id="saveNameBtn">Guardar Nombre</button>
+                        </div>
+                        <div class="chat-input-group" id="chatInputGroup" style="display: none;">
+                            <input type="text" id="chatMsgInput" class="chat-input" placeholder="Escribe tu mensaje aquí..." maxlength="150">
+                            <button class="chat-btn" id="sendMsgBtn">Enviar</button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
             <aside class="sidebar">
                 <div class="widget">
                     <h3>Nuestras Redes del Canal</h3>
-                    <div class="social-links">
-                        <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn">YouTube</a>
-                        <a href="https://www.facebook.com/Adonaytvdigital/" target="_blank" class="social-btn">Facebook</a>
+                    <div class="social-links" style="display: flex; flex-direction: column; gap: 8px;">
+                        <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">📺 YouTube</a>
+                        <a href="https://www.facebook.com/Adonaytvdigital/" target="_blank" class="social-btn" style="justify-content: center;">📘 Facebook</a>
+                        <a href="https://www.instagram.com/jcmultimedios" target="_blank" class="social-btn" style="justify-content: center;">📸 Instagram (JC Multimedios)</a>
+                        <a href="https://www.tiktok.com/@j.cmultimedios?_r=1&_t=ZS-9AUxNl6u0rm" target="_blank" class="social-btn" style="justify-content: center;">🎵 TikTok (JC Multimedios)</a>
                     </div>
                 </div>
 
+                <!-- WIDGET DE PROMOCIÓN DE JC RECORDS -->
+                <div class="sidebar-promo">
+                    <h4>JC Records Studios</h4>
+                    <p>Grabación, mezcla, master y clases de música en Lomas de Zamora. ¡Llevá tu talento al siguiente nivel[cite: 4]!</p>
+                    <a href="#jc-records" onclick="showTab('jc-records', event)" class="btn-whatsapp" style="background-color: var(--accent-color); color: #000;">Conocé los Servicios</a>
+                </div>
+
                 <div class="widget">
-                    <h3>Programación y Publicidad</h3>
-                    <div class="program-container">
-                        <img src="https://i.imgur.com/DfNK4ji.jpeg" alt="Programación Adonay">
-                    </div>
+                    <h3>Publicidad y Contacto</h3>
                     <a href="https://wa.me/5491171424693?text=Hola,%20quiero%20publicitar%20en%20Adonay%20TV%20y%20Radio" target="_blank" class="btn-whatsapp">
                         💬 Publicita con nosotros (WhatsApp)
                     </a>
@@ -443,7 +599,7 @@
             <div class="jc-container">
                 <div class="jc-hero">
                     <h2>JC Records - Estudios de Grabación y Producción Musical</h2>
-                    <p>Tu talento en buenas manos. Producción integral, clases de música y streaming profesional bajo la dirección de Diego Hernández en Lomas de Zamora[cite: 4, 8].</p>
+                    <p>Tu talento en buenas manos. Producción integral, clases de música y streaming profesional bajo la dirección de Diego Hernández en Lomas de Zamora[cite: 4].</p>
                     <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20consultar%20sobre%20los%20servicios%20de%20JC%20Records" target="_blank" class="btn-whatsapp" style="max-width: 300px; margin: 0 auto;">
                         💬 Consultas por WhatsApp
                     </a>
@@ -477,7 +633,7 @@
                         <div class="jc-card-body">
                             <div>
                                 <h3>Clases de Música</h3>
-                                <p>Aprendé, crecé y disfrutá con clases personalizadas de Guitarra, Teclado y Bajo[cite: 8]. Niveles inicial e intermedio para todas las edades[cite: 8]. ¡Hacé realidad tu música[cite: 6]!</p>
+                                <p>Aprendé, crecé y disfrutá con clases personalizadas de Guitarra, Teclado y Bajo. Niveles inicial e intermedio para todas las edades. ¡Hacé realidad tu música[cite: 6]!</p>
                             </div>
                             <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20inscribirme%20a%20las%20clases%20de%20música" target="_blank" class="btn-whatsapp">Inscribite Aquí</a>
                         </div>
@@ -488,7 +644,7 @@
                         <div class="jc-card-body">
                             <div>
                                 <h3>Lives y Streaming</h3>
-                                <p>Hablá y conectate con tus seguidores en Instagram[cite: 13]. Calidad de imagen Full HD, audio profesional sin ruidos y conexión estable ideal para tus lives, música y entrevistas[cite: 13].</p>
+                                <p>Hablá y conectate con tus seguidores en Instagram. Calidad de imagen Full HD, audio profesional sin ruidos y conexión estable ideal para tus lives, música y entrevistas.</p>
                             </div>
                             <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20consultar%20por%20el%20servicio%20de%20streaming%20en%20vivo" target="_blank" class="btn-whatsapp">Consultar Streaming</a>
                         </div>
@@ -499,7 +655,7 @@
                         <div class="jc-card-body">
                             <div>
                                 <h3>Studio Life - Renovación</h3>
-                                <p>Remodelamos nuestro estudio: más cómodo, más equipado y mejor para ti[cite: 11]. Nuevos espacios ideales para tus proyectos musicales y audiovisuales.</p>
+                                <p>Remodelamos nuestro estudio: más cómodo, más equipado y mejor para ti. Nuevos espacios ideales para tus proyectos musicales y audiovisuales.</p>
                             </div>
                             <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20conocer%20el%20estudio" target="_blank" class="btn-whatsapp">Conocé el Estudio</a>
                         </div>
@@ -521,34 +677,232 @@
 
         <!-- SECCIÓN 3: PROGRAMACIÓN -->
         <div id="tab-programacion" class="tab-content">
-            <div class="jc-hero" style="grid-column: 1 / -1;">
-                <h2>Grilla de Programación</h2>
-                <p>Próximamente publicaremos aquí el detalle completo de toda la programación semanal.</p>
+            <div class="jc-container">
+                <div class="jc-hero">
+                    <h2>Grilla de Programación</h2>
+                    <p>Conoce los programas y emisoras destacados que forman parte de Adonay TV y Radio.</p>
+                </div>
+
+                <div class="jc-grid">
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/uVl5l4Z.jpeg" alt="Mateando con La Gringa">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Mateando con La Gringa</h3>
+                                <p>Disfruta de las entregas del programa los martes de 20 a 21 hs a través de YouTube (@adonaytv).</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver en YouTube</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/THMflSX.jpeg" alt="Recordando al Payador">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Recordando al Payador</h3>
+                                <p>Glorias del arte rioplatense y payadoril conducido por Chiquito Dalla "El Tordillito" de Lomas de Zamora. Todos los miércoles de 18 a 20 hs.</p>
+                            </div>
+                            <a href="https://wa.me/5491171424693?text=Hola,%20quiero%20dejar%20un%20mensaje%20para%20Recordando%20al%20Payador" target="_blank" class="btn-whatsapp">Dejar Mensaje (WhatsApp)</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/khJmhW5.jpeg" alt="Antigua Raíz">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Antigua Raíz</h3>
+                                <p>Un espacio dedicado a nuestras raíces y nuestra música, conducido por Tony y Marcelino.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver en YouTube</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/kHK3SRV.jpeg" alt="El Show de Pichi Landi">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>El Show de Pichi Landi</h3>
+                                <p>Todo el entretenimiento y la alegría de la mano de Pichi Landi. Viernes de 22 a 23 hs (CNS23).</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/G6fTKso.jpeg" alt="La Casona del Chamamé">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>La Casona del Chamamé</h3>
+                                <p>Todo el sentimiento chamamecero ("La Voz del Millón") con la conducción de Guillermo Manzo. Todos los martes a las 21 horas.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/dzkS9qN.jpeg" alt="Espacio Tropical">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Espacio Tropical</h3>
+                                <p>Lo mejor de la música tropical todos los domingos a las 20 horas, conducido por Roly Aguilera.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/vtssAz4.jpeg" alt="La verdad no contada">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>La Verdad No Contada</h3>
+                                <p>Entrevistas y debates imperdibles todos los jueves a las 14:30 horas, bajo la conducción de Juampi Guerra.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/xU4Wkrw.jpeg" alt="El Rancho de Aldo Caggiano">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>El Rancho de Aldo Caggiano</h3>
+                                <p>Folklore, música y tradición todos los lunes a las 23 horas, conducido por Aldo Caggiano.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/EPz11QJ.jpeg" alt="Pichi Landi Show">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Pichi Landi Show</h3>
+                                <p>Música, alegría y grandes momentos todos los lunes a las 18 horas, con la conducción de Pichi Landi.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/daB9nv2.jpeg" alt="Uruguayos que Brillan">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Uruguayos que Brillan</h3>
+                                <p>Un espacio dedicado al talento y las figuras uruguayas, todos los miércoles a las 23 horas, conducido por Estela Farias.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/cIJFqnH.jpeg" alt="Desenmascarando las Falsas Doctrinas">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Desenmascarando las Falsas Doctrinas</h3>
+                                <p>Discerniendo a los falsos apóstoles y profetas a la luz de la Palabra de Dios. Todos los viernes a las 14 horas, con la conducción de Sandro Montiel.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Ver Programa</a>
+                        </div>
+                    </div>
+
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/RNFcQI2.jpeg" alt="Radio de la Costa FM 100.3">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Radio de la Costa FM 100.3</h3>
+                                <p>Transmisión oficial desde Santa Teresita para toda la costa atlántica.</p>
+                            </div>
+                            <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">Sintonizar</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- SECCIÓN 4: QUIÉNES SOMOS -->
         <div id="tab-quienes-somos" class="tab-content">
-            <div class="jc-hero" style="grid-column: 1 / -1;">
-                <h2>Quiénes Somos</h2>
-                <p>Somos una productora multimedia ubicada en Cerrito 1738, Lomas de Zamora, dedicada a brindar entretenimiento, cultura y transmisiones en vivo.</p>
+            <div class="jc-container" style="max-width: 900px; margin: 0 auto;">
+                <div class="jc-hero" style="text-align: left; padding: 40px;">
+                    <h2 style="text-align: center; margin-bottom: 25px;">¿Quiénes Somos?</h2>
+                    
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        <strong>JC Multimedios</strong> es una empresa familiar dedicada a la comunicación, los medios digitales y la producción integral de contenidos. Con sede principal en Lomas de Zamora y un segundo estudio en San Vicente, provincia de Buenos Aires, desarrollamos proyectos que integran radio, televisión, producción audiovisual y música.
+                    </p>
+
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        Nuestra historia está respaldada por una amplia trayectoria: cerca de 30 años de experiencia en producción musical a través de <strong>JC Records</strong> y más de 20 años de recorrido en el ámbito radial, acompañando la evolución de los medios y las nuevas formas de comunicar.
+                    </p>
+
+                    <h3 style="color: var(--accent-color); margin: 25px 0 15px 0; font-size: 1.2rem;">A través de nuestras marcas, ofrecemos una propuesta integral:</h3>
+                    <ul style="color: var(--text-muted); line-height: 1.8; margin-left: 20px; margin-bottom: 25px;">
+                        <li><strong>Adonay Radio:</strong> Emisora online dedicada a la difusión de contenidos y programas.</li>
+                        <li><strong>Adonay TV:</strong> Canal audiovisual para la producción y transmisión de programas, eventos y contenidos digitales.</li>
+                        <li><strong>JC Records:</strong> Productora musical y discográfica dedicada a la grabación, producción y desarrollo artístico.</li>
+                        <li><strong>JC Multimedios:</strong> La estructura que integra, impulsa y coordina nuestros proyectos de comunicación y producción.</li>
+                    </ul>
+
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        Fuimos la segunda radio de streaming de Buenos Aires, después de Cadena D, de Villa Real, formando parte de una etapa pionera en el desarrollo de esta modalidad de comunicación.
+                    </p>
+
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        Bajo la dirección general de <strong>Julio Hernández</strong>, junto a la familia Hernández y <strong>Araceli Barbero</strong>, construimos un proyecto basado en la responsabilidad, la creatividad, la innovación y la pasión por comunicar.
+                    </p>
+
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 20px;">
+                        Trabajamos junto a artistas, empresas, iglesias y organizaciones, brindando soluciones profesionales en streaming, radio, televisión, producción audiovisual, grabación musical, publicidad y difusión de contenidos.
+                    </p>
+
+                    <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 30px;">
+                        Nuestra misión es conectar personas, impulsar talentos y transformar ideas en proyectos concretos, combinando experiencia, tecnología y compromiso en cada producción.
+                    </p>
+
+                    <div style="text-align: center; border-top: 1px solid var(--panel-border); padding-top: 20px;">
+                        <h3 style="color: var(--accent-color); letter-spacing: 2px; font-size: 1.3rem;">JC MULTIMEDIOS</h3>
+                        <p style="color: var(--text-color); font-weight: 600; margin-top: 5px;">Creamos • Producimos • Difundimos</p>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- SECCIÓN 5: CONTACTO -->
         <div id="tab-contacto" class="tab-content">
-            <div class="jc-hero" style="grid-column: 1 / -1;">
-                <h2>Contacto Oficial</h2>
-                <p><strong>Dirección:</strong> Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
-                <p><strong>Email:</strong> jcrecord2000@yahoo.com.ar</p>
-                <p><strong>Teléfono / WhatsApp:</strong> +54 9 11 5114-6838</p>
+            <div class="jc-container" style="max-width: 900px; margin: 0 auto;">
+                <div class="jc-hero">
+                    <h2>Contacto Oficial</h2>
+                    <p>¿Querés comunicarte con nosotros, publicitar o formar parte de la programación?</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 30px; text-align: left;">
+                        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid var(--panel-border);">
+                            <h3 style="color: var(--accent-color); margin-bottom: 10px; font-size: 1.1rem;">📍 Sede Principal</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">Cerrito 1738<br>Lomas de Zamora, Buenos Aires[cite: 4]</p>
+                        </div>
+
+                        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid var(--panel-border);">
+                            <h3 style="color: var(--accent-color); margin-bottom: 10px; font-size: 1.1rem;">📧 Correo Electrónico</h3>
+                            <p style="color: var(--text-muted); font-size: 0.95rem;">jcrecord2000@yahoo.com.ar</p>
+                        </div>
+
+                        <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 8px; border: 1px solid var(--panel-border); grid-column: 1 / -1;">
+                            <h3 style="color: var(--accent-color); margin-bottom: 15px; font-size: 1.1rem;">📱 Teléfonos y WhatsApp de Contacto</h3>
+                            <div style="display: flex; flex-direction: column; gap: 12px;">
+                                <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20consultar%20con%20JC%20Records" target="_blank" class="btn-whatsapp" style="text-align: left; padding: 10px 15px;">
+                                    💬 JC Records / Diego Hernández: +54 9 11 5114-6838
+                                </a>
+                                <a href="https://wa.me/5491171424693?text=Hola,%20quiero%20comunicarme%20con%20Adonay%20TV" target="_blank" class="btn-whatsapp" style="text-align: left; padding: 10px 15px; background-color: #1f8ad2;">
+                                    💬 Canal / Publicidad Adonay TV: +54 9 11 7142-4693
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
     <footer>
-        <p><strong>ADONAY TV Y RADIO & JC RECORDS</strong> | Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
-        <p>Email: jcrecord2000@yahoo.com.ar | Teléfono / WhatsApp: +54 9 11 5114-6838</p>
+        <p><strong>JC MULTIMEDIOS | ADONAY TV Y RADIO & JC RECORDS</strong> | Lomas de Zamora y San Vicente, Buenos Aires</p>
+        <p>Email: jcrecord2000@yahoo.com.ar | Teléfonos: +54 9 11 5114-6838 / +54 9 11 7142-4693</p>
     </footer>
 
     <script>
@@ -568,15 +922,14 @@
             
             event.target.classList.add('active');
 
-            // Actualizar el título en la pestaña del navegador para Google y los usuarios
             const titles = {
                 'inicio': 'Adonay TV | En Vivo',
                 'jc-records': 'JC Records | Estudio de Grabación y Producción Musical',
-                'programacion': 'Programación | Adonay TV & JC Records',
-                'quienes-somos': 'Quiénes Somos | JC Records & Adonay',
-                'contacto': 'Contacto | JC Records & Adonay'
+                'programacion': 'Programación | Adonay TV & Radio',
+                'quienes-somos': 'Quiénes Somos | JC Multimedios & Adonay',
+                'contacto': 'Contacto | JC Multimedios & Adonay'
             };
-            document.getElementById('page-title').textContent = titles[tabId] || 'JC Records & Adonay TV';
+            document.getElementById('page-title').textContent = titles[tabId] || 'JC Multimedios & Adonay TV';
 
             if (tabId === 'jc-records') {
                 document.body.classList.add('jc-active');
@@ -600,7 +953,6 @@
                     
                     if (hash === 'jc-records') {
                         document.body.classList.add('jc-active');
-                        document.getElementById('page-title').textContent = 'JC Records | Estudio de Grabación y Producción Musical';
                     }
                 }
             }
@@ -615,6 +967,72 @@
             setTimeout(() => {
                 unmuteBtn.textContent = "🔊 Activar Sonido";
             }, 4000);
+        });
+
+        // LÓGICA DEL CHAT PROPIO
+        let userName = localStorage.getItem('adonay_chat_user') || '';
+        const userSetupDiv = document.getElementById('userSetup');
+        const chatInputGroup = document.getElementById('chatInputGroup');
+        const chatNameInput = document.getElementById('chatNameInput');
+        const saveNameBtn = document.getElementById('saveNameBtn');
+        const chatMsgInput = document.getElementById('chatMsgInput');
+        const sendMsgBtn = document.getElementById('sendMsgBtn');
+        const chatMessages = document.getElementById('chatMessages');
+
+        if (userName) {
+            userSetupDiv.style.display = 'none';
+            chatInputGroup.style.display = 'flex';
+        }
+
+        saveNameBtn.addEventListener('click', () => {
+            const nameVal = chatNameInput.value.trim();
+            if (nameVal.length > 0) {
+                userName = nameVal;
+                localStorage.setItem('adonay_chat_user', userName);
+                userSetupDiv.style.display = 'none';
+                chatInputGroup.style.display = 'flex';
+            } else {
+                alert('Por favor ingresa un nombre válido.');
+            }
+        });
+
+        function appendMessage(author, text, isAdmin = false) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = isAdmin ? 'chat-msg admin' : 'chat-msg';
+            
+            const authorSpan = document.createElement('span');
+            authorSpan.className = 'author';
+            authorSpan.textContent = author + ':';
+            
+            const textSpan = document.createElement('span');
+            textSpan.className = 'text';
+            textSpan.textContent = ' ' + text;
+            
+            msgDiv.appendChild(authorSpan);
+            msgDiv.appendChild(textSpan);
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        sendMsgBtn.addEventListener('click', () => {
+            const msgVal = chatMsgInput.value.trim();
+            if (msgVal.length > 0 && userName) {
+                appendMessage(userName, msgVal);
+                chatMsgInput.value = '';
+
+                // Respuesta automática del canal ocasional
+                if (Math.random() > 0.6) {
+                    setTimeout(() => {
+                        appendMessage('Adonay TV', `¡Muchas gracias ${userName} por tu mensaje y sintonizarnos siempre! 🙌`, true);
+                    }, 2000);
+                }
+            }
+        });
+
+        chatMsgInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMsgBtn.click();
+            }
         });
     </script>
 </body>
