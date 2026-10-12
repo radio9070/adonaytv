@@ -24,7 +24,6 @@
         }
 
         body {
-            /* Fondo general de la página (Inicio) */
             background: linear-gradient(rgba(11, 11, 11, 0.75), rgba(11, 11, 11, 0.82)), 
                         url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
@@ -34,9 +33,8 @@
             min-height: 100vh;
         }
 
-        /* Fondo específico para cuando se abre la pestaña de JC Records (Estudio de grabación/consola) */
         body.jc-active {
-            background: linear-gradient(rgba(10, 10, 10, 0.80), rgba(10, 10, 10, 0.88)), 
+            background: linear-gradient(rgba(10, 10, 10, 0.82), rgba(10, 10, 10, 0.90)), 
                         url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
         }
@@ -95,7 +93,6 @@
             padding: 30px 20px;
         }
 
-        /* Sistema de secciones independientes */
         .tab-content {
             display: none;
             grid-template-columns: 2fr 1fr;
@@ -280,31 +277,84 @@
             transform: scale(1.02);
         }
 
-        /* Estilos específicos y profesionales para la pestaña de JC Records con temática de estudio */
-        .jc-content-box {
+        .jc-container {
+            grid-column: 1 / -1;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .jc-hero {
             background-color: var(--panel-bg);
             backdrop-filter: blur(8px);
             border: 1px solid var(--accent-color);
             border-radius: 12px;
-            padding: 40px;
+            padding: 30px;
             box-shadow: 0 12px 35px rgba(0,0,0,0.7);
-            grid-column: 1 / -1;
+            text-align: center;
         }
 
-        .jc-content-box h2 {
+        .jc-hero h2 {
             color: var(--accent-color);
-            margin-bottom: 20px;
-            font-size: 2rem;
-            border-bottom: 1px solid var(--panel-border);
-            padding-bottom: 12px;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
             letter-spacing: 1px;
         }
 
-        .jc-content-box p {
+        .jc-hero p {
             color: var(--text-muted);
             font-size: 1.1rem;
-            line-height: 1.7;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+        }
+
+        .jc-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+        }
+
+        .jc-card {
+            background-color: var(--panel-bg);
+            backdrop-filter: blur(5px);
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+            transition: transform 0.3s;
+        }
+
+        .jc-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+        }
+
+        .jc-card img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        .jc-card-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            flex: 1;
+            justify-content: space-between;
+        }
+
+        .jc-card-body h3 {
+            color: var(--accent-color);
+            font-size: 1.25rem;
+        }
+
+        .jc-card-body p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         footer {
@@ -380,22 +430,96 @@
             </aside>
         </div>
 
-        <!-- SECCIÓN 2: JC RECORDS (ESTUDIO DE GRABACIÓN) -->
+        <!-- SECCIÓN 2: JC RECORDS (ESTUDIO DE GRABACIÓN Y PRODUCCIÓN) -->
         <div id="tab-jc-records" class="tab-content">
-            <div class="jc-content-box">
-                <h2>JC Records - Estudio de Grabación y Producción</h2>
-                <p>Bienvenido al espacio oficial de <strong>JC Records</strong>. Contamos con tecnología de punta, consolas de alta fidelidad, equipamiento profesional y un estudio de primer nivel adaptado para producciones discográficas, locución y contenidos audiovisuales de máxima calidad.</p>
-                <p>Síguenos en nuestras redes oficiales y mantente conectado con todas nuestras novedades:</p>
-                <div class="social-links" style="justify-content: flex-start; gap: 15px; margin-top: 20px;">
-                    <a href="https://www.instagram.com/jcmultimedios" target="_blank" class="social-btn">Instagram JC Multimedios</a>
-                    <a href="https://www.tiktok.com/@j.cmultimedios?_r=1&_t=ZS-9AUxNl6u0rm" target="_blank" class="social-btn">TikTok JC Multimedios</a>
+            <div class="jc-container">
+                <div class="jc-hero">
+                    <h2>JC Records - Estudios de Grabación y Producción Musical</h2>
+                    <p>Tu talento en buenas manos. Producción integral, clases de música y streaming profesional bajo la dirección de Diego Hernández en Lomas de Zamora[cite: 4, 8].</p>
+                    <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20consultar%20sobre%20los%20servicios%20de%20JC%20Records" target="_blank" class="btn-whatsapp" style="max-width: 300px; margin: 0 auto;">
+                        💬 Consultas por WhatsApp
+                    </a>
+                </div>
+
+                <div class="jc-grid">
+                    <!-- Tarjeta 1: Presentación / Institucional -->
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/7DN2Ugu.jpeg" alt="JC Multimedios Institucional">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>JC Multimedios & Récord</h3>
+                                <p>Siempre tu mejor opción en producción audiovisual, radio y multimedia.</p>
+                            </div>
+                            <a href="https://www.instagram.com/jcmultimedios" target="_blank" class="social-btn" style="justify-content: center;">Instagram Oficial</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 2: Producción Musical y Grabación -->
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/JZvYpGB.jpeg" alt="Estudio de Grabación y Producción Musical">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Grabación y Producción</h3>
+                                <p>Grabación de demos y beats, producción musical (idea, mezcla, master), distribución digital (Spotify, Apple Music, YouTube), videoclips y fotografía profesional para todos los estilos (Rock, Pop, Trap, Cumbia, Cristiano)[cite: 4].</p>
+                            </div>
+                            <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20información%20sobre%20grabación%20y%20producción" target="_blank" class="btn-whatsapp">Reservar Turno</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 3: Clases de Música -->
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/UjXMoGw.jpeg" alt="Clases de Música JC Records">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Clases de Música</h3>
+                                <p>Aprendé, crecé y disfrutá con clases personalizadas de Guitarra, Teclado y Bajo[cite: 8]. Niveles inicial e intermedio para todas las edades[cite: 8]. ¡Hacé realidad tu música[cite: 6]!</p>
+                            </div>
+                            <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20inscribirme%20a%20las%20clases%20de%20música" target="_blank" class="btn-whatsapp">Inscribite Aquí</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 4: Transmisiones y Lives -->
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/GaxNcSb.jpeg" alt="Transmisiones en Vivo y Lives">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Lives y Streaming</h3>
+                                <p>Hablá y conectate con tus seguidores en Instagram[cite: 13]. Calidad de imagen Full HD, audio profesional sin ruidos y conexión estable ideal para tus lives, música y entrevistas[cite: 13].</p>
+                            </div>
+                            <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20consultar%20por%20el%20servicio%20de%20streaming%20en%20vivo" target="_blank" class="btn-whatsapp">Consultar Streaming</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 5: Estudio Renovado (Studio Life) -->
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/wYbhWHl.jpeg" alt="Estudio Renovado JC Records">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Studio Life - Renovación</h3>
+                                <p>Remodelamos nuestro estudio: más cómodo, más equipado y mejor para ti[cite: 11]. Nuevos espacios ideales para tus proyectos musicales y audiovisuales.</p>
+                            </div>
+                            <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20conocer%20el%20estudio" target="_blank" class="btn-whatsapp">Conocé el Estudio</a>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta 6: Studio Life (Misma Pasión, Distintos Espacios) -->
+                    <div class="jc-card">
+                        <img src="https://i.imgur.com/mSJVY1W.jpeg" alt="Studio Life Espacios de Grabación">
+                        <div class="jc-card-body">
+                            <div>
+                                <h3>Studio Life - Espacios</h3>
+                                <p>Misma pasión, distintos espacios[cite: 1]. Descanso, ideas, proyectos y el mismo propósito para llevar tu música al siguiente nivel.</p>
+                            </div>
+                            <a href="https://wa.me/5491151146838?text=Hola,%20quiero%20consultar%20sobre%20los%20espacios%20de%20JC%20Records" target="_blank" class="btn-whatsapp">Consultar Espacios</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- SECCIÓN 3: PROGRAMACIÓN -->
         <div id="tab-programacion-tab" class="tab-content">
-            <div class="jc-content-box">
+            <div class="jc-hero" style="grid-column: 1 / -1;">
                 <h2>Grilla de Programación</h2>
                 <p>Próximamente publicaremos aquí el detalle completo de toda la programación semanal.</p>
             </div>
@@ -403,7 +527,7 @@
 
         <!-- SECCIÓN 4: QUIÉNES SOMOS -->
         <div id="tab-quienes-tab" class="tab-content">
-            <div class="jc-content-box">
+            <div class="jc-hero" style="grid-column: 1 / -1;">
                 <h2>Quiénes Somos</h2>
                 <p>Somos una productora multimedia ubicada en Cerrito 1738, Lomas de Zamora, dedicada a brindar entretenimiento, cultura y transmisiones en vivo.</p>
             </div>
@@ -411,7 +535,7 @@
 
         <!-- SECCIÓN 5: CONTACTO -->
         <div id="tab-contacto-tab" class="tab-content">
-            <div class="jc-content-box">
+            <div class="jc-hero" style="grid-column: 1 / -1;">
                 <h2>Contacto Oficial</h2>
                 <p><strong>Dirección:</strong> Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
                 <p><strong>Email:</strong> jcrecord2000@yahoo.com.ar</p>
@@ -435,7 +559,6 @@
 
             document.getElementById('tab-' + tabId).classList.add('active');
             
-            // Cambia el fondo del body según la pestaña activa (temática de estudio de grabación para JC Records)
             if (tabId === 'jc-records') {
                 document.body.classList.add('jc-active');
             } else {
