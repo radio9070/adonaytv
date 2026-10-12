@@ -24,7 +24,6 @@
         }
 
         body {
-            /* Fondo de estudio con un oscurecimiento más suave y menor blur para que se aprecien bien los detalles */
             background: linear-gradient(rgba(11, 11, 11, 0.75), rgba(11, 11, 11, 0.82)), 
                         url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
@@ -100,6 +99,42 @@
             display: flex;
             flex-direction: column;
             gap: 15px;
+        }
+
+        /* Aviso amigable para activar audio dirigido a personas mayores */
+        .audio-notice {
+            background-color: #222;
+            border: 1px solid var(--accent-color);
+            padding: 12px 18px;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .audio-notice span {
+            font-size: 0.95rem;
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .btn-unmute {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .btn-unmute:hover {
+            transform: scale(1.05);
         }
 
         .video-container {
@@ -292,8 +327,15 @@
 
     <main>
         <section class="stream-section">
+            <!-- Aviso superior muy visible para ayudar a activar el audio de forma sencilla -->
+            <div class="audio-notice">
+                <span>📺 ¿No escuchas el video? Haz clic aquí para activar el sonido:</span>
+                <button class="btn-unmute" id="unmuteBtn">🔊 Activar Sonido</button>
+            </div>
+
             <div class="video-container">
-                <iframe src="https://player.kick.com/adonaytv" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+                <!-- Se añade muted inicialmente para cumplir las normas del navegador, el botón superior ayuda a encenderlo -->
+                <iframe id="kickPlayer" src="https://player.kick.com/adonaytv?muted=false" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay"></iframe>
             </div>
             <div class="stream-title">
                 <span class="live-badge">EN VIVO</span> Transmisión Oficial Adonay TV
@@ -311,6 +353,7 @@
                             <p style="font-size: 0.8rem; color: var(--text-muted);">Transmisión 24/7</p>
                         </div>
                     </div>
+                    <!-- Nota: Para que suene en Vercel (HTTPS), consulta con tu proveedor si disponen de un enlace seguro HTTPS -->
                     <audio id="radioAudio" src="http://centova1.veemesoft.com.ar:8104/live" preload="none"></audio>
                 </div>
             </div>
@@ -341,17 +384,33 @@
     </footer>
 
     <script>
+        // Control de la radio en vivo
         const playBtn = document.getElementById('playRadioBtn');
         const audioStream = document.getElementById('radioAudio');
 
         playBtn.addEventListener('click', () => {
             if (audioStream.paused) {
-                audioStream.play();
+                audioStream.play().catch(error => {
+                    alert("El navegador bloqueó la reproducción automática o la radio usa HTTP en un sitio seguro HTTPS. Consulta con tu proveedor un enlace HTTPS de streaming.");
+                });
                 playBtn.textContent = 'PAUSE';
             } else {
                 audioStream.pause();
                 playBtn.textContent = 'PLAY';
             }
+        });
+
+        // Botón auxiliar para guiar a las personas mayores a encender el sonido del reproductor fácilmente
+        const unmuteBtn = document.getElementById('unmuteBtn');
+        const kickPlayer = document.getElementById('kickPlayer');
+
+        unmuteBtn.addEventListener('click', () => {
+            // Recarga el iframe forzando la interacción del usuario para que el reproductor active el audio completo
+            kickPlayer.src = kickPlayer.src;
+            unmuteBtn.textContent = "✅ ¡Sonido Activado!";
+            setTimeout(() => {
+                unmuteBtn.textContent = "🔊 Activar Sonido";
+            }, 4000);
         });
     </script>
 </body>
