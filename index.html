@@ -3,10 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adonay TV y Radio | En Vivo</title>
-    <!-- Favicon (Logotipo en la pestaña del navegador) -->
+    
+    <!-- TÍTULO OPTIMIZADO PARA GOOGLE Y SEO -->
+    <title id="page-title">JC Records & Adonay TV | Estudio de Grabación en Lomas de Zamora</title>
+    
+    <!-- DESCRIPCIÓN PARA MOTORES DE BÚSQUEDA (GOOGLE) -->
+    <meta name="description" content="JC Records y Adonay TV en Lomas de Zamora. Estudio de grabación profesional, producción musical, clases de guitarra, teclado, bajo y transmisiones en vivo Full HD.">
+    <meta name="keywords" content="JC Records, Adonay TV, estudio de grabación Lomas de Zamora, producción musical, clases de música, streaming en vivo">
+    
+    <!-- Favicon -->
     <link rel="icon" href="https://i.imgur.com/nTo5JSD.jpeg" type="image/jpeg">
     <link rel="manifest" href="manifest.json">
+    
     <style>
         :root {
             --panel-bg: rgba(22, 22, 22, 0.90);
@@ -383,11 +391,11 @@
         </div>
         <nav>
             <ul>
-                <li><a id="nav-inicio" class="active" onclick="switchTab('inicio')">INICIO</a></li>
-                <li><a id="nav-jc" onclick="switchTab('jc-records')">JC RECORDS</a></li>
-                <li><a onclick="switchTab('programacion-tab')">PROGRAMACIÓN</a></li>
-                <li><a onclick="switchTab('quienes-tab')">QUIÉNES SOMOS</a></li>
-                <li><a onclick="switchTab('contacto-tab')">CONTACTO</a></li>
+                <li><a href="#inicio" onclick="showTab('inicio', event)">INICIO</a></li>
+                <li><a href="#jc-records" onclick="showTab('jc-records', event)">JC RECORDS</a></li>
+                <li><a href="#programacion" onclick="showTab('programacion', event)">PROGRAMACIÓN</a></li>
+                <li><a href="#quienes-somos" onclick="showTab('quienes-somos', event)">QUIÉNES SOMOS</a></li>
+                <li><a href="#contacto" onclick="showTab('contacto', event)">CONTACTO</a></li>
             </ul>
         </nav>
     </header>
@@ -430,7 +438,7 @@
             </aside>
         </div>
 
-        <!-- SECCIÓN 2: JC RECORDS (ESTUDIO DE GRABACIÓN Y PRODUCCIÓN) -->
+        <!-- SECCIÓN 2: JC RECORDS -->
         <div id="tab-jc-records" class="tab-content">
             <div class="jc-container">
                 <div class="jc-hero">
@@ -442,7 +450,6 @@
                 </div>
 
                 <div class="jc-grid">
-                    <!-- Tarjeta 1: Presentación / Institucional -->
                     <div class="jc-card">
                         <img src="https://i.imgur.com/7DN2Ugu.jpeg" alt="JC Multimedios Institucional">
                         <div class="jc-card-body">
@@ -454,7 +461,6 @@
                         </div>
                     </div>
 
-                    <!-- Tarjeta 2: Producción Musical y Grabación -->
                     <div class="jc-card">
                         <img src="https://i.imgur.com/JZvYpGB.jpeg" alt="Estudio de Grabación y Producción Musical">
                         <div class="jc-card-body">
@@ -466,7 +472,6 @@
                         </div>
                     </div>
 
-                    <!-- Tarjeta 3: Clases de Música -->
                     <div class="jc-card">
                         <img src="https://i.imgur.com/UjXMoGw.jpeg" alt="Clases de Música JC Records">
                         <div class="jc-card-body">
@@ -478,7 +483,6 @@
                         </div>
                     </div>
 
-                    <!-- Tarjeta 4: Transmisiones y Lives -->
                     <div class="jc-card">
                         <img src="https://i.imgur.com/GaxNcSb.jpeg" alt="Transmisiones en Vivo y Lives">
                         <div class="jc-card-body">
@@ -490,7 +494,6 @@
                         </div>
                     </div>
 
-                    <!-- Tarjeta 5: Estudio Renovado (Studio Life) -->
                     <div class="jc-card">
                         <img src="https://i.imgur.com/wYbhWHl.jpeg" alt="Estudio Renovado JC Records">
                         <div class="jc-card-body">
@@ -502,7 +505,6 @@
                         </div>
                     </div>
 
-                    <!-- Tarjeta 6: Studio Life (Misma Pasión, Distintos Espacios) -->
                     <div class="jc-card">
                         <img src="https://i.imgur.com/mSJVY1W.jpeg" alt="Studio Life Espacios de Grabación">
                         <div class="jc-card-body">
@@ -518,7 +520,7 @@
         </div>
 
         <!-- SECCIÓN 3: PROGRAMACIÓN -->
-        <div id="tab-programacion-tab" class="tab-content">
+        <div id="tab-programacion" class="tab-content">
             <div class="jc-hero" style="grid-column: 1 / -1;">
                 <h2>Grilla de Programación</h2>
                 <p>Próximamente publicaremos aquí el detalle completo de toda la programación semanal.</p>
@@ -526,7 +528,7 @@
         </div>
 
         <!-- SECCIÓN 4: QUIÉNES SOMOS -->
-        <div id="tab-quienes-tab" class="tab-content">
+        <div id="tab-quienes-somos" class="tab-content">
             <div class="jc-hero" style="grid-column: 1 / -1;">
                 <h2>Quiénes Somos</h2>
                 <p>Somos una productora multimedia ubicada en Cerrito 1738, Lomas de Zamora, dedicada a brindar entretenimiento, cultura y transmisiones en vivo.</p>
@@ -534,7 +536,7 @@
         </div>
 
         <!-- SECCIÓN 5: CONTACTO -->
-        <div id="tab-contacto-tab" class="tab-content">
+        <div id="tab-contacto" class="tab-content">
             <div class="jc-hero" style="grid-column: 1 / -1;">
                 <h2>Contacto Oficial</h2>
                 <p><strong>Dirección:</strong> Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
@@ -550,23 +552,59 @@
     </footer>
 
     <script>
-        function switchTab(tabId) {
+        function showTab(tabId, event) {
+            event.preventDefault();
+            
             const tabs = document.querySelectorAll('.tab-content');
             tabs.forEach(tab => tab.classList.remove('active'));
 
             const navLinks = document.querySelectorAll('nav ul li a');
             navLinks.forEach(link => link.classList.remove('active'));
 
-            document.getElementById('tab-' + tabId).classList.add('active');
+            const targetTab = document.getElementById('tab-' + tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
             
+            event.target.classList.add('active');
+
+            // Actualizar el título en la pestaña del navegador para Google y los usuarios
+            const titles = {
+                'inicio': 'Adonay TV | En Vivo',
+                'jc-records': 'JC Records | Estudio de Grabación y Producción Musical',
+                'programacion': 'Programación | Adonay TV & JC Records',
+                'quienes-somos': 'Quiénes Somos | JC Records & Adonay',
+                'contacto': 'Contacto | JC Records & Adonay'
+            };
+            document.getElementById('page-title').textContent = titles[tabId] || 'JC Records & Adonay TV';
+
             if (tabId === 'jc-records') {
                 document.body.classList.add('jc-active');
             } else {
                 document.body.classList.remove('jc-active');
             }
 
-            event.target.classList.add('active');
+            history.pushState(null, null, '#' + tabId);
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = window.location.hash.replace('#', '');
+            if (hash) {
+                const targetTab = document.getElementById('tab-' + hash);
+                const targetLink = document.querySelector(`nav ul li a[href="#${hash}"]`);
+                if (targetTab && targetLink) {
+                    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('nav ul li a').forEach(l => l.classList.remove('active'));
+                    targetTab.classList.add('active');
+                    targetLink.classList.add('active');
+                    
+                    if (hash === 'jc-records') {
+                        document.body.classList.add('jc-active');
+                        document.getElementById('page-title').textContent = 'JC Records | Estudio de Grabación y Producción Musical';
+                    }
+                }
+            }
+        });
 
         const unmuteBtn = document.getElementById('unmuteBtn');
         const kickPlayer = document.getElementById('kickPlayer');
