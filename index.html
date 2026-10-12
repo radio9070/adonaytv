@@ -24,6 +24,7 @@
         }
 
         body {
+            /* Fondo general de la página (Inicio) */
             background: linear-gradient(rgba(11, 11, 11, 0.75), rgba(11, 11, 11, 0.82)), 
                         url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
             background-size: cover;
@@ -31,6 +32,13 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+        }
+
+        /* Fondo específico para cuando se abre la pestaña de JC Records (Estudio de grabación/consola) */
+        body.jc-active {
+            background: linear-gradient(rgba(10, 10, 10, 0.80), rgba(10, 10, 10, 0.88)), 
+                        url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1920&auto=format&fit=crop') no-repeat center center fixed;
+            background-size: cover;
         }
 
         header {
@@ -72,6 +80,7 @@
             font-size: 0.95rem;
             font-weight: 600;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         nav ul li a:hover, nav ul li a.active {
@@ -84,13 +93,21 @@
             width: 100%;
             margin: 0 auto;
             padding: 30px 20px;
-            display: grid;
+        }
+
+        /* Sistema de secciones independientes */
+        .tab-content {
+            display: none;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
 
+        .tab-content.active {
+            display: grid;
+        }
+
         @media (max-width: 1024px) {
-            main {
+            .tab-content.active {
                 grid-template-columns: 1fr;
             }
         }
@@ -200,37 +217,6 @@
             padding-bottom: 8px;
         }
 
-        .radio-player {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .radio-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .btn-play {
-            background-color: var(--accent-color);
-            color: #000;
-            border: none;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 0.2s;
-        }
-
-        .btn-play:hover {
-            transform: scale(1.05);
-        }
-
         .social-links {
             display: flex;
             justify-content: space-around;
@@ -294,6 +280,33 @@
             transform: scale(1.02);
         }
 
+        /* Estilos específicos y profesionales para la pestaña de JC Records con temática de estudio */
+        .jc-content-box {
+            background-color: var(--panel-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--accent-color);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 12px 35px rgba(0,0,0,0.7);
+            grid-column: 1 / -1;
+        }
+
+        .jc-content-box h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 2rem;
+            border-bottom: 1px solid var(--panel-border);
+            padding-bottom: 12px;
+            letter-spacing: 1px;
+        }
+
+        .jc-content-box p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
         footer {
             background-color: var(--panel-bg);
             backdrop-filter: blur(5px);
@@ -320,86 +333,117 @@
         </div>
         <nav>
             <ul>
-                <li><a href="#" class="active">INICIO</a></li>
-                <li><a href="#radio">RADIO EN VIVO</a></li>
-                <li><a href="#programacion">PROGRAMACIÓN</a></li>
-                <li><a href="#quienes-somos">QUIÉNES SOMOS</a></li>
-                <li><a href="#contacto">CONTACTO</a></li>
+                <li><a id="nav-inicio" class="active" onclick="switchTab('inicio')">INICIO</a></li>
+                <li><a id="nav-jc" onclick="switchTab('jc-records')">JC RECORDS</a></li>
+                <li><a onclick="switchTab('programacion-tab')">PROGRAMACIÓN</a></li>
+                <li><a onclick="switchTab('quienes-tab')">QUIÉNES SOMOS</a></li>
+                <li><a onclick="switchTab('contacto-tab')">CONTACTO</a></li>
             </ul>
         </nav>
     </header>
 
     <main>
-        <section class="stream-section">
-            <div class="audio-notice">
-                <span>📺 ¿No escuchas el video? Haz clic aquí para activar el sonido:</span>
-                <button class="btn-unmute" id="unmuteBtn">🔊 Activar Sonido</button>
-            </div>
+        <!-- SECCIÓN 1: INICIO (CANAL DE TV EN VIVO) -->
+        <div id="tab-inicio" class="tab-content active">
+            <section class="stream-section">
+                <div class="audio-notice">
+                    <span>📺 ¿No escuchas el video? Haz clic aquí para activar el sonido:</span>
+                    <button class="btn-unmute" id="unmuteBtn">🔊 Activar Sonido</button>
+                </div>
 
-            <div class="video-container">
-                <iframe id="kickPlayer" src="https://player.kick.com/adonaytv?muted=false" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay"></iframe>
-            </div>
-            <div class="stream-title">
-                <span class="live-badge">EN VIVO</span> Transmisión Oficial Adonay TV
-            </div>
-        </section>
+                <div class="video-container">
+                    <iframe id="kickPlayer" src="https://player.kick.com/adonaytv?muted=false" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay"></iframe>
+                </div>
+                <div class="stream-title">
+                    <span class="live-badge">EN VIVO</span> Transmisión Oficial Adonay TV
+                </div>
+            </section>
 
-        <aside class="sidebar">
-            <div class="widget" id="radio">
-                <h3>Radio en Vivo</h3>
-                <div class="radio-player">
-                    <div class="radio-controls">
-                        <button class="btn-play" id="playRadioBtn">PLAY</button>
-                        <div>
-                            <p style="font-weight: 650; font-size: 0.95rem;">ADONAY TV Y RADIO</p>
-                            <p style="font-size: 0.8rem; color: var(--text-muted);">Transmisión 24/7</p>
-                        </div>
+            <aside class="sidebar">
+                <div class="widget">
+                    <h3>Nuestras Redes del Canal</h3>
+                    <div class="social-links">
+                        <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn">YouTube</a>
+                        <a href="https://www.facebook.com/Adonaytvdigital/" target="_blank" class="social-btn">Facebook</a>
                     </div>
-                    <audio id="radioAudio" src="http://centova1.veemesoft.com.ar:8104/live" preload="none"></audio>
                 </div>
-            </div>
 
-            <div class="widget">
-                <h3>Nuestras Redes</h3>
-                <div class="social-links">
-                    <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn">YouTube</a>
-                    <a href="https://www.facebook.com/Adonaytvdigital/" target="_blank" class="social-btn">Facebook</a>
-                    <a href="https://www.instagram.com/jcmultimedios" target="_blank" class="social-btn">Instagram</a>
+                <div class="widget">
+                    <h3>Programación y Publicidad</h3>
+                    <div class="program-container">
+                        <img src="https://i.imgur.com/DfNK4ji.jpeg" alt="Programación Adonay">
+                    </div>
+                    <a href="https://wa.me/5491171424693?text=Hola,%20quiero%20publicitar%20en%20Adonay%20TV%20y%20Radio" target="_blank" class="btn-whatsapp">
+                        💬 Publicita con nosotros (WhatsApp)
+                    </a>
                 </div>
-            </div>
+            </aside>
+        </div>
 
-            <div class="widget" id="programacion">
-                <h3>Programación y Publicidad</h3>
-                <div class="program-container">
-                    <img src="https://i.imgur.com/DfNK4ji.jpeg" alt="Programación Adonay">
+        <!-- SECCIÓN 2: JC RECORDS (ESTUDIO DE GRABACIÓN) -->
+        <div id="tab-jc-records" class="tab-content">
+            <div class="jc-content-box">
+                <h2>JC Records - Estudio de Grabación y Producción</h2>
+                <p>Bienvenido al espacio oficial de <strong>JC Records</strong>. Contamos con tecnología de punta, consolas de alta fidelidad, equipamiento profesional y un estudio de primer nivel adaptado para producciones discográficas, locución y contenidos audiovisuales de máxima calidad.</p>
+                <p>Síguenos en nuestras redes oficiales y mantente conectado con todas nuestras novedades:</p>
+                <div class="social-links" style="justify-content: flex-start; gap: 15px; margin-top: 20px;">
+                    <a href="https://www.instagram.com/jcmultimedios" target="_blank" class="social-btn">Instagram JC Multimedios</a>
+                    <a href="https://www.tiktok.com/@j.cmultimedios?_r=1&_t=ZS-9AUxNl6u0rm" target="_blank" class="social-btn">TikTok JC Multimedios</a>
                 </div>
-                <a href="https://wa.me/5491171424693?text=Hola,%20quiero%20publicitar%20en%20Adonay%20TV%20y%20Radio" target="_blank" class="btn-whatsapp">
-                    💬 Publicita con nosotros (WhatsApp)
-                </a>
             </div>
-        </aside>
+        </div>
+
+        <!-- SECCIÓN 3: PROGRAMACIÓN -->
+        <div id="tab-programacion-tab" class="tab-content">
+            <div class="jc-content-box">
+                <h2>Grilla de Programación</h2>
+                <p>Próximamente publicaremos aquí el detalle completo de toda la programación semanal.</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 4: QUIÉNES SOMOS -->
+        <div id="tab-quienes-tab" class="tab-content">
+            <div class="jc-content-box">
+                <h2>Quiénes Somos</h2>
+                <p>Somos una productora multimedia ubicada en Cerrito 1738, Lomas de Zamora, dedicada a brindar entretenimiento, cultura y transmisiones en vivo.</p>
+            </div>
+        </div>
+
+        <!-- SECCIÓN 5: CONTACTO -->
+        <div id="tab-contacto-tab" class="tab-content">
+            <div class="jc-content-box">
+                <h2>Contacto Oficial</h2>
+                <p><strong>Dirección:</strong> Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
+                <p><strong>Email:</strong> jcrecord2000@yahoo.com.ar</p>
+                <p><strong>Teléfono / WhatsApp:</strong> +54 9 11 5114-6838</p>
+            </div>
+        </div>
     </main>
 
     <footer>
-        <p><strong>ADONAY TV Y RADIO</strong> | Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
+        <p><strong>ADONAY TV Y RADIO & JC RECORDS</strong> | Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
         <p>Email: jcrecord2000@yahoo.com.ar | Teléfono / WhatsApp: +54 9 11 5114-6838</p>
     </footer>
 
     <script>
-        const playBtn = document.getElementById('playRadioBtn');
-        const audioStream = document.getElementById('radioAudio');
+        function switchTab(tabId) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
 
-        playBtn.addEventListener('click', () => {
-            if (audioStream.paused) {
-                audioStream.play().catch(error => {
-                    alert("El navegador bloqueó la reproducción automática o la radio usa HTTP en un sitio seguro HTTPS. Consulta con tu proveedor un enlace HTTPS de streaming.");
-                });
-                playBtn.textContent = 'PAUSE';
+            const navLinks = document.querySelectorAll('nav ul li a');
+            navLinks.forEach(link => link.classList.remove('active'));
+
+            document.getElementById('tab-' + tabId).classList.add('active');
+            
+            // Cambia el fondo del body según la pestaña activa (temática de estudio de grabación para JC Records)
+            if (tabId === 'jc-records') {
+                document.body.classList.add('jc-active');
             } else {
-                audioStream.pause();
-                playBtn.textContent = 'PLAY';
+                document.body.classList.remove('jc-active');
             }
-        });
+
+            event.target.classList.add('active');
+        }
 
         const unmuteBtn = document.getElementById('unmuteBtn');
         const kickPlayer = document.getElementById('kickPlayer');
