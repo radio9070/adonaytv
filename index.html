@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adonay TV y Radio | En Vivo</title>
+    <!-- Favicon (Logotipo en la pestaña del navegador) -->
+    <link rel="icon" href="https://i.imgur.com/nTo5JSD.jpeg" type="image/jpeg">
+    <link rel="manifest" href="manifest.json">
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --panel-bg: #161616;
+            --accent-color: #d4af37;
+            --text-color: #ffffff;
+            --text-muted: #aaaaaa;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: var(--panel-bg);
+            border-bottom: 2px solid var(--accent-color);
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container img {
+            height: 48px;
+            width: auto;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent-color);
+        }
+
+        main {
+            flex: 1;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        @media (max-width: 1024px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .stream-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+            border: 1px solid #222;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        .stream-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .live-badge {
+            background-color: #e50914;
+            color: white;
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .widget {
+            background-color: var(--panel-bg);
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+        }
+
+        .widget h3 {
+            font-size: 1rem;
+            color: var(--accent-color);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 8px;
+        }
+
+        .radio-player {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .radio-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-play {
+            background-color: var(--accent-color);
+            color: #000;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s;
+        }
+
+        .btn-play:hover {
+            transform: scale(1.05);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .social-btn {
+            background-color: #222;
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s, color 0.3s;
+            border: 1px solid #333;
+        }
+
+        .social-btn:hover {
+            background-color: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+        }
+
+        .program-container {
+            width: 100%;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            border: 1px solid #333;
+        }
+
+        .program-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .btn-whatsapp {
+            display: block;
+            width: 100%;
+            background-color: #25d366;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.95rem;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #20ba5a;
+            transform: scale(1.02);
+        }
+
+        footer {
+            background-color: var(--panel-bg);
+            border-top: 1px solid #222;
+            text-align: center;
+            padding: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <!-- Logotipo oficial en la cabecera -->
+            <img src="https://i.imgur.com/nTo5JSD.jpeg" alt="Adonay TV y Radio">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">INICIO</a></li>
+                <li><a href="#radio">RADIO EN VIVO</a></li>
+                <li><a href="#programacion">PROGRAMACIÓN</a></li>
+                <li><a href="#quienes-somos">QUIÉNES SOMOS</a></li>
+                <li><a href="#contacto">CONTACTO</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="stream-section">
+            <div class="video-container">
+                <iframe src="https://player.kick.com/adonaytv" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>
+            </div>
+            <div class="stream-title">
+                <span class="live-badge">EN VIVO</span> Transmisión Oficial Adonay TV
+            </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="widget" id="radio">
+                <h3>Radio en Vivo</h3>
+                <div class="radio-player">
+                    <div class="radio-controls">
+                        <button class="btn-play" id="playRadioBtn">PLAY</button>
+                        <div>
+                            <p style="font-weight: 650; font-size: 0.95rem;">ADONAY RADIO</p>
+                            <p style="font-size: 0.8rem; color: var(--text-muted);">Transmisión 24/7</p>
+                        </div>
+                    </div>
+                    <audio id="radioAudio" src="http://centova1.veemesoft.com.ar:8104/live" preload="none"></audio>
+                </div>
+            </div>
+
+            <div class="widget">
+                <h3>Nuestras Redes</h3>
+                <div class="social-links">
+                    <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn">YouTube</a>
+                    <a href="https://www.facebook.com/Adonaytvdigital/" target="_blank" class="social-btn">Facebook</a>
+                    <a href="https://www.instagram.com/adonaytv1962/" target="_blank" class="social-btn">Instagram</a>
+                </div>
+            </div>
+
+            <div class="widget" id="programacion">
+                <h3>Programación y Publicidad</h3>
+                <div class="program-container">
+                    <img src="https://i.imgur.com/DfNK4ji.jpeg" alt="Programación Adonay">
+                </div>
+                <a href="https://wa.me/5491171424693?text=Hola,%20quiero%20publicitar%20en%20Adonay%20TV%20y%20Radio" target="_blank" class="btn-whatsapp">
+                    💬 Publicita con nosotros (WhatsApp)
+                </a>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <p>ADONAY TV Y RADIO | Gualeguay, Entre Ríos | Email: contacto@adonaytv.com | Tel: 11-7142-4693</p>
+    </footer>
+
+    <script>
+        const playBtn = document.getElementById('playRadioBtn');
+        const audioStream = document.getElementById('radioAudio');
+
+        playBtn.addEventListener('click', () => {
+            if (audioStream.paused) {
+                audioStream.play();
+                playBtn.textContent = 'PAUSE';
+            } else {
+                audioStream.pause();
+                playBtn.textContent = 'PLAY';
+            }
+        });
+    </script>
+</body>
+</html>

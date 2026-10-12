@@ -1,0 +1,23 @@
+# ADONAY TV Y RADIO - Sitio Web Oficial
+
+Plataforma multimedia moderna, interactiva y totalmente adaptable (*responsive*) para la transmisión en directo de **Adonay TV** (vía Kick) y **Adonay Radio**. 
+
+---
+
+## 📻 Características
+
+* **Streaming de Video en Vivo:** Reproductor integrado de Kick optimizado en alta definición y sin bordes negros[cite: 3, 4, 5, 6].
+* **Radio en Directo:** Conectado al servidor oficial de streaming de audio en alta calidad.
+* **Diseño Responsive:** Adaptado para teléfonos inteligentes, tablets y computadoras de escritorio.
+* **Redes Sociales:** Accesos directos integrados para YouTube, Facebook e Instagram oficiales.
+* **Sección Comercial:** Espacio de programación y publicidad con datos de contacto directos.
+
+---
+
+## 📁 Estructura del Proyecto
+
+```text
+├── index.html        # Estructura visual, estilos y lógica del sitio
+├── manifest.json     # Configuración de Aplicación Web Progressiva (PWA)
+├── sw.js             # Service Worker para gestión de caché
+└── image/            # Carpeta contenedora de logotipos y recursos visuales
