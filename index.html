@@ -101,7 +101,6 @@
             gap: 15px;
         }
 
-        /* Aviso amigable para activar audio dirigido a personas mayores */
         .audio-notice {
             background-color: #222;
             border: 1px solid var(--accent-color);
@@ -305,6 +304,11 @@
             color: var(--text-muted);
             margin-top: auto;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.5);
+            line-height: 1.6;
+        }
+
+        footer strong {
+            color: var(--accent-color);
         }
     </style>
 </head>
@@ -327,14 +331,12 @@
 
     <main>
         <section class="stream-section">
-            <!-- Aviso superior muy visible para ayudar a activar el audio de forma sencilla -->
             <div class="audio-notice">
                 <span>📺 ¿No escuchas el video? Haz clic aquí para activar el sonido:</span>
                 <button class="btn-unmute" id="unmuteBtn">🔊 Activar Sonido</button>
             </div>
 
             <div class="video-container">
-                <!-- Se añade muted inicialmente para cumplir las normas del navegador, el botón superior ayuda a encenderlo -->
                 <iframe id="kickPlayer" src="https://player.kick.com/adonaytv?muted=false" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay"></iframe>
             </div>
             <div class="stream-title">
@@ -349,11 +351,10 @@
                     <div class="radio-controls">
                         <button class="btn-play" id="playRadioBtn">PLAY</button>
                         <div>
-                            <p style="font-weight: 650; font-size: 0.95rem;">ADONAY RADIO</p>
+                            <p style="font-weight: 650; font-size: 0.95rem;">ADONAY TV Y RADIO</p>
                             <p style="font-size: 0.8rem; color: var(--text-muted);">Transmisión 24/7</p>
                         </div>
                     </div>
-                    <!-- Nota: Para que suene en Vercel (HTTPS), consulta con tu proveedor si disponen de un enlace seguro HTTPS -->
                     <audio id="radioAudio" src="http://centova1.veemesoft.com.ar:8104/live" preload="none"></audio>
                 </div>
             </div>
@@ -380,11 +381,11 @@
     </main>
 
     <footer>
-        <p>ADONAY TV Y RADIO | Gualeguay, Entre Ríos | Email: contacto@adonaytv.com | Tel: 11-7142-4693</p>
+        <p><strong>ADONAY TV Y RADIO</strong> | Cerrito 1738, Lomas de Zamora, Buenos Aires</p>
+        <p>Email: jcrecord2000@yahoo.com.ar | Teléfono / WhatsApp: +54 9 11 5114-6838</p>
     </footer>
 
     <script>
-        // Control de la radio en vivo
         const playBtn = document.getElementById('playRadioBtn');
         const audioStream = document.getElementById('radioAudio');
 
@@ -400,12 +401,10 @@
             }
         });
 
-        // Botón auxiliar para guiar a las personas mayores a encender el sonido del reproductor fácilmente
         const unmuteBtn = document.getElementById('unmuteBtn');
         const kickPlayer = document.getElementById('kickPlayer');
 
         unmuteBtn.addEventListener('click', () => {
-            // Recarga el iframe forzando la interacción del usuario para que el reproductor active el audio completo
             kickPlayer.src = kickPlayer.src;
             unmuteBtn.textContent = "✅ ¡Sonido Activado!";
             setTimeout(() => {
