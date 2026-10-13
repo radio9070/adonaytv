@@ -1045,6 +1045,77 @@
             .availability-note{font-size:.59rem}
         }
 
+
+        .youtube-live-simple {
+            padding: 24px 18px 20px;
+            text-align: center;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(255,0,0,.18), transparent 45%),
+                linear-gradient(180deg, rgba(18,18,18,.96), rgba(8,8,8,.98));
+        }
+
+        .youtube-live-icon {
+            width: 58px;
+            height: 42px;
+            margin: 0 auto 14px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            background: #ff0000;
+            color: #fff;
+            font-size: 1.2rem;
+            padding-left: 3px;
+            box-shadow: 0 10px 24px rgba(255,0,0,.22);
+        }
+
+        .youtube-live-simple h4 {
+            margin: 0 0 8px;
+            color: #fff;
+            font-size: 1.05rem;
+        }
+
+        .youtube-live-simple p {
+            margin: 0 auto 18px;
+            max-width: 290px;
+            color: var(--text-muted);
+            font-size: .88rem;
+            line-height: 1.55;
+        }
+
+        .youtube-live-btn {
+            display: block;
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            background: #ff0000;
+            color: #fff;
+            text-decoration: none;
+            font-size: .88rem;
+            font-weight: 800;
+            letter-spacing: .04em;
+            transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+            box-shadow: 0 8px 18px rgba(255,0,0,.18);
+        }
+
+        .youtube-live-btn:hover {
+            transform: translateY(-2px);
+            background: #e60000;
+            box-shadow: 0 12px 24px rgba(255,0,0,.25);
+        }
+
+        .youtube-channel-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: .82rem;
+            transition: color .2s ease;
+        }
+
+        .youtube-channel-link:hover {
+            color: var(--accent-color);
+        }
+
     </style>
 </head>
 <body>
@@ -1140,32 +1211,28 @@
                 <div class="widget">
                     <h3>Nuestras Redes del Canal</h3>
                     <div class="social-links" style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="https://www.youtube.com/@adonaytvdigital" target="_blank" class="social-btn" style="justify-content: center;">📺 YouTube</a>
+                        <a href="https://www.youtube.com/c/jcrecord2000Producciones" target="_blank" rel="noopener noreferrer" class="social-btn" style="justify-content: center;">📺 YouTube</a>
                         <a href="https://www.facebook.com/Adonaytvdigital/" target="_blank" class="social-btn" style="justify-content: center;">📘 Facebook</a>
                         <a href="https://www.instagram.com/jcmultimedios" target="_blank" class="social-btn" style="justify-content: center;">📸 Instagram (JC Multimedios)</a>
                         <a href="https://www.tiktok.com/@j.cmultimedios?_r=1&_t=ZS-9AUxNl6u0rm" target="_blank" class="social-btn" style="justify-content: center;">🎵 TikTok (JC Multimedios)</a>
                     </div>
                 </div>
 
-                <!-- SEÑAL ALTERNATIVA DE YOUTUBE -->
-                <div class="stream-player-card youtube-stream sidebar-youtube">
+                <!-- YOUTUBE EN VIVO: ACCESO DIRECTO Y ESTABLE SIN API -->
+                <div class="stream-player-card youtube-stream sidebar-youtube youtube-live-card">
                     <div class="stream-player-head">
                         <div>
                             <span class="stream-platform youtube-label">YOUTUBE</span>
-                            <strong>Señal alternativa</strong>
+                            <strong>Señal oficial</strong>
                         </div>
-                        <span class="availability-note">Cuando hay emisión</span>
+                        <span class="availability-note">EN VIVO / CANAL</span>
                     </div>
-                    <div class="video-container">
-                        <iframe
-                            id="youtubePlayer"
-                            src="https://www.youtube.com/embed/live_stream?channel=UCcYYXo-gHdOD7mbxu0qVevw&autoplay=0&rel=0"
-                            title="Adonay TV en vivo por YouTube"
-                            frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            referrerpolicy="strict-origin-when-cross-origin"
-                            allowfullscreen>
-                        </iframe>
+                    <div class="youtube-live-simple">
+                        <div class="youtube-live-icon">▶</div>
+                        <h4>Adonay TV en YouTube</h4>
+                        <p>Cuando el canal esté transmitiendo, este acceso te lleva directamente al vivo actual.</p>
+                        <a href="https://www.youtube.com/channel/UCcYYXo-gHdOD7mbxu0qVevw/live" target="_blank" rel="noopener noreferrer" class="youtube-live-btn">VER EN VIVO EN YOUTUBE</a>
+                        <a href="https://www.youtube.com/c/jcrecord2000Producciones" target="_blank" rel="noopener noreferrer" class="youtube-channel-link">Ir al canal oficial</a>
                     </div>
                 </div>
 
@@ -1595,6 +1662,9 @@
                 unmuteBtn.textContent = "🔊 Activar Sonido";
             }, 4000);
         });
+
+        // YouTube se abre mediante el enlace permanente /live del canal.
+        // No requiere API Key y evita dependencias externas para detectar la transmisión.
 
         // CHAT PERSISTENTE CON SUPABASE
         const SUPABASE_URL = 'PEGA_AQUI_TU_SUPABASE_URL';
