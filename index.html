@@ -978,6 +978,73 @@
         @media(max-width:1100px){#tab-inicio.active{grid-template-columns:1fr}.home-hero{grid-template-columns:1fr}.hero-status{justify-self:start}.jc-card,#tab-programacion .jc-card{grid-column:span 6}.footer-top{grid-template-columns:1fr 1fr}.footer-brand{grid-column:1/-1}}
         @media(max-width:760px){header{top:8px;width:calc(100% - 16px);margin-top:8px;border-radius:18px;padding:8px}.logo-container img{height:44px}.brand-copy strong{font-size:.76rem}.brand-copy span{font-size:.58rem}nav{width:100%;overflow-x:auto;padding-bottom:2px}nav ul{width:max-content}nav ul li a{padding:9px 11px;font-size:.68rem}main{padding:20px 10px 48px}.home-hero{min-height:auto;padding:42px 6px 28px}.hero-copy h1{font-size:4rem}.hero-status{margin-top:10px}.jc-hero{border-radius:22px;padding:30px 22px}.jc-hero h2{font-size:2.55rem}.jc-grid{display:grid;grid-template-columns:1fr}.jc-card,#tab-jc-records .jc-card:nth-child(1),#tab-jc-records .jc-card:nth-child(2),#tab-programacion .jc-card,#tab-programacion .jc-card:nth-child(1),#tab-programacion .jc-card:nth-child(2){grid-column:auto}.contact-shell{grid-template-columns:1fr!important}.contact-primary{grid-template-columns:1fr!important}.site-footer{width:calc(100% - 16px);border-radius:22px}.footer-top{grid-template-columns:1fr;padding:30px 24px}.footer-brand{grid-column:auto}.footer-bottom{padding:16px 24px;flex-direction:column}.user-setup{flex-wrap:wrap}.user-setup span{width:100%}}
 
+    
+        /* CHAT PERSISTENTE / SUPABASE */
+        .chat-header{gap:12px;flex-wrap:wrap}
+        .chat-header-copy{display:flex;flex-direction:column;gap:2px}
+        .chat-header-copy small{font-size:.72rem;color:var(--text-muted);font-weight:500;letter-spacing:.02em}
+        .chat-status{margin-left:auto;font-size:.72rem;padding:5px 9px;border-radius:999px;background:rgba(255,255,255,.06);color:var(--text-muted);border:1px solid rgba(255,255,255,.08)}
+        .chat-status.online{color:#c9ffd7;background:rgba(37,211,102,.08);border-color:rgba(37,211,102,.22)}
+        .chat-status.error{color:#ffd2d2;background:rgba(229,9,20,.08);border-color:rgba(229,9,20,.22)}
+        .chat-msg .meta{display:block;font-size:.68rem;color:rgba(255,255,255,.48);margin-top:5px}
+        .chat-empty,.chat-loading{padding:18px;text-align:center;color:var(--text-muted);font-size:.86rem}
+        .chat-btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+
+
+        /* DOBLE REPRODUCTOR: KICK + YOUTUBE */
+        .dual-stream-grid{
+            order:1;
+            display:grid;
+            grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+            gap:16px;
+            align-items:start;
+        }
+        .stream-player-card{
+            min-width:0;
+            overflow:hidden;
+            border:1px solid rgba(255,255,255,.10);
+            border-radius:22px;
+            background:rgba(7,8,10,.76);
+            backdrop-filter:blur(18px);
+            box-shadow:0 24px 70px rgba(0,0,0,.38);
+        }
+        .stream-player-card .video-container{
+            order:initial;
+            border:0;
+            border-radius:0;
+            box-shadow:none;
+        }
+        .stream-player-head{
+            min-height:64px;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:12px;
+            padding:13px 15px;
+            border-bottom:1px solid rgba(255,255,255,.08);
+        }
+        .stream-player-head>div{display:flex;flex-direction:column;gap:3px}
+        .stream-player-head strong{font-size:.86rem;color:#f5f3ec;letter-spacing:.01em}
+        .stream-platform{font-size:.61rem;font-weight:800;letter-spacing:.18em;color:#8ff0b5}
+        .youtube-label{color:#ff8d95}
+        .availability-note{font-size:.64rem;color:#8f9297;white-space:nowrap}
+        .youtube-stream{background:rgba(10,10,12,.70)}
+        .youtube-stream .video-container{background:#050505}
+        .sidebar-youtube{width:100%;border-radius:18px;overflow:hidden;box-shadow:0 16px 38px rgba(0,0,0,.42)}
+        .sidebar-youtube .stream-player-head{min-height:58px;padding:11px 13px}
+        .sidebar-youtube .video-container{border-radius:0;border:0;box-shadow:none}
+        .audio-notice{order:2}
+        .stream-title{order:3}
+        .chat-container{order:4}
+        @media(max-width:900px){
+            .dual-stream-grid{grid-template-columns:1fr}
+        }
+        @media(max-width:520px){
+            .stream-player-card{border-radius:18px}
+            .stream-player-head{min-height:58px;padding:11px 12px}
+            .availability-note{font-size:.59rem}
+        }
+
     </style>
 </head>
 <body>
@@ -1025,25 +1092,35 @@
                     <button class="btn-unmute" id="unmuteBtn">🔊 Activar Sonido</button>
                 </div>
 
-                <!-- REPRODUCTOR DE VIDEO A TODO EL ANCHO -->
-                <div class="video-container">
-                    <iframe id="kickPlayer" src="https://player.kick.com/adonaytv?muted=false" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay"></iframe>
+                <!-- DOBLE SEÑAL: KICK PRINCIPAL + YOUTUBE ALTERNATIVO -->
+                <div class="stream-player-card primary-stream">
+                    <div class="stream-player-head">
+                        <div>
+                            <span class="stream-platform">KICK</span>
+                            <strong>Señal principal</strong>
+                        </div>
+                        <span class="live-badge">EN VIVO</span>
+                    </div>
+                    <div class="video-container">
+                        <iframe id="kickPlayer" src="https://player.kick.com/adonaytv?muted=false" frameborder="0" scrolling="no" allowfullscreen="true" allow="autoplay"></iframe>
+                    </div>
                 </div>
 
                 <div class="stream-title">
-                    <span class="live-badge">EN VIVO</span> Transmisión Oficial Adonay TV
+                    <span class="live-badge">EN VIVO</span> Transmisión oficial Adonay TV
                 </div>
 
                 <!-- CHAT PROPIO UBICADO EN LA PARTE INFERIOR DEL REPRODUCTOR -->
                 <div class="chat-container">
                     <div class="chat-header">
-                        💬 Chat en Vivo - Dejanos tu mensaje
+                        <div class="chat-header-copy">
+                            <strong>💬 Comunidad Adonay TV</strong>
+                            <small>Dejanos tu saludo o mensaje. Queda guardado para la comunidad.</small>
+                        </div>
+                        <span class="chat-status" id="chatStatus">Conectando…</span>
                     </div>
                     <div class="chat-messages" id="chatMessages">
-                        <div class="chat-msg admin">
-                            <span class="author">Adonay TV:</span>
-                            <span class="text">¡Bienvenidos a la transmisión oficial! Escribí tu nombre y dejanos tu saludo en el chat.</span>
-                        </div>
+                        <div class="chat-loading" id="chatLoading">Cargando mensajes…</div>
                     </div>
                     <div class="chat-footer">
                         <div class="user-setup" id="userSetup">
@@ -1067,6 +1144,28 @@
                         <a href="https://www.facebook.com/Adonaytvdigital/" target="_blank" class="social-btn" style="justify-content: center;">📘 Facebook</a>
                         <a href="https://www.instagram.com/jcmultimedios" target="_blank" class="social-btn" style="justify-content: center;">📸 Instagram (JC Multimedios)</a>
                         <a href="https://www.tiktok.com/@j.cmultimedios?_r=1&_t=ZS-9AUxNl6u0rm" target="_blank" class="social-btn" style="justify-content: center;">🎵 TikTok (JC Multimedios)</a>
+                    </div>
+                </div>
+
+                <!-- SEÑAL ALTERNATIVA DE YOUTUBE -->
+                <div class="stream-player-card youtube-stream sidebar-youtube">
+                    <div class="stream-player-head">
+                        <div>
+                            <span class="stream-platform youtube-label">YOUTUBE</span>
+                            <strong>Señal alternativa</strong>
+                        </div>
+                        <span class="availability-note">Cuando hay emisión</span>
+                    </div>
+                    <div class="video-container">
+                        <iframe
+                            id="youtubePlayer"
+                            src="https://www.youtube.com/embed/live_stream?channel=UCcYYXo-gHdOD7mbxu0qVevw&autoplay=0&rel=0"
+                            title="Adonay TV en vivo por YouTube"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            referrerpolicy="strict-origin-when-cross-origin"
+                            allowfullscreen>
+                        </iframe>
                     </div>
                 </div>
 
@@ -1429,6 +1528,7 @@
         </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         function setSectionTheme(tabId) {
             document.body.classList.remove('tab-inicio','tab-jc-records','tab-programacion','tab-quienes-somos','tab-contacto','jc-active');
@@ -1496,7 +1596,12 @@
             }, 4000);
         });
 
-        // LÓGICA DEL CHAT PROPIO
+        // CHAT PERSISTENTE CON SUPABASE
+        const SUPABASE_URL = 'PEGA_AQUI_TU_SUPABASE_URL';
+        const SUPABASE_ANON_KEY = 'PEGA_AQUI_TU_SUPABASE_ANON_KEY';
+        const CHAT_TABLE = 'chat_messages';
+        const MAX_MESSAGES = 100;
+
         let userName = localStorage.getItem('adonay_chat_user') || '';
         const userSetupDiv = document.getElementById('userSetup');
         const chatInputGroup = document.getElementById('chatInputGroup');
@@ -1505,62 +1610,79 @@
         const chatMsgInput = document.getElementById('chatMsgInput');
         const sendMsgBtn = document.getElementById('sendMsgBtn');
         const chatMessages = document.getElementById('chatMessages');
+        const chatStatus = document.getElementById('chatStatus');
 
-        if (userName) {
-            userSetupDiv.style.display = 'none';
-            chatInputGroup.style.display = 'flex';
+        const supabaseConfigured = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('PEGA_AQUI') && SUPABASE_ANON_KEY.length > 30 && !SUPABASE_ANON_KEY.includes('PEGA_AQUI');
+        const db = supabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+
+        function setChatStatus(text, state = '') {
+            chatStatus.textContent = text;
+            chatStatus.className = 'chat-status' + (state ? ' ' + state : '');
         }
 
-        saveNameBtn.addEventListener('click', () => {
-            const nameVal = chatNameInput.value.trim();
-            if (nameVal.length > 0) {
-                userName = nameVal;
-                localStorage.setItem('adonay_chat_user', userName);
-                userSetupDiv.style.display = 'none';
-                chatInputGroup.style.display = 'flex';
-            } else {
-                alert('Por favor ingresa un nombre válido.');
-            }
-        });
+        function formatMessageDate(dateValue) {
+            return new Intl.DateTimeFormat('es-AR', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}).format(new Date(dateValue));
+        }
 
-        function appendMessage(author, text, isAdmin = false) {
+        function renderMessage(message) {
+            if (!message || !message.author || !message.message) return;
+            if (message.id && chatMessages.querySelector(`[data-message-id="${message.id}"]`)) return;
+            const loading = document.getElementById('chatLoading'); if (loading) loading.remove();
+            const empty = chatMessages.querySelector('.chat-empty'); if (empty) empty.remove();
             const msgDiv = document.createElement('div');
-            msgDiv.className = isAdmin ? 'chat-msg admin' : 'chat-msg';
-            
-            const authorSpan = document.createElement('span');
-            authorSpan.className = 'author';
-            authorSpan.textContent = author + ':';
-            
-            const textSpan = document.createElement('span');
-            textSpan.className = 'text';
-            textSpan.textContent = ' ' + text;
-            
-            msgDiv.appendChild(authorSpan);
-            msgDiv.appendChild(textSpan);
+            msgDiv.className = message.is_admin ? 'chat-msg admin' : 'chat-msg';
+            if (message.id) msgDiv.dataset.messageId = message.id;
+            const authorSpan = document.createElement('span'); authorSpan.className='author'; authorSpan.textContent=message.author+':';
+            const textSpan = document.createElement('span'); textSpan.className='text'; textSpan.textContent=' '+message.message;
+            const meta = document.createElement('span'); meta.className='meta'; meta.textContent=message.created_at ? formatMessageDate(message.created_at) : '';
+            msgDiv.append(authorSpan,textSpan,meta);
             chatMessages.appendChild(msgDiv);
+            while (chatMessages.querySelectorAll('.chat-msg').length > MAX_MESSAGES) chatMessages.querySelector('.chat-msg')?.remove();
             chatMessages.scrollTop = chatMessages.scrollHeight;
         }
 
-        sendMsgBtn.addEventListener('click', () => {
-            const msgVal = chatMsgInput.value.trim();
-            if (msgVal.length > 0 && userName) {
-                appendMessage(userName, msgVal);
-                chatMsgInput.value = '';
-
-                // Respuesta automática del canal ocasional
-                if (Math.random() > 0.6) {
-                    setTimeout(() => {
-                        appendMessage('Adonay TV', `¡Muchas gracias ${userName} por tu mensaje y sintonizarnos siempre! 🙌`, true);
-                    }, 2000);
-                }
+        async function loadMessages() {
+            if (!db) {
+                chatMessages.innerHTML='<div class="chat-empty">El chat está preparado. Falta conectar Supabase para guardar mensajes de todos los visitantes.</div>';
+                setChatStatus('Falta configurar','error'); sendMsgBtn.disabled=true; return;
             }
+            const {data,error}=await db.from(CHAT_TABLE).select('id, author, message, is_admin, created_at').order('created_at',{ascending:false}).limit(MAX_MESSAGES);
+            if (error) { console.error(error); chatMessages.innerHTML='<div class="chat-empty">No pudimos cargar los mensajes.</div>'; setChatStatus('Sin conexión','error'); return; }
+            chatMessages.innerHTML='';
+            (data||[]).reverse().forEach(renderMessage);
+            if (!data || !data.length) chatMessages.innerHTML='<div class="chat-empty">Todavía no hay mensajes. ¡Sé el primero en saludar!</div>';
+            setChatStatus('En línea','online');
+        }
+
+        function subscribeToMessages() {
+            if (!db) return;
+            db.channel('public-chat').on('postgres_changes',{event:'INSERT',schema:'public',table:CHAT_TABLE},payload=>renderMessage(payload.new)).subscribe(status=>{if(status==='SUBSCRIBED')setChatStatus('En línea','online');});
+        }
+
+        if (userName) { userSetupDiv.style.display='none'; chatInputGroup.style.display='flex'; }
+        saveNameBtn.addEventListener('click',()=>{
+            const nameVal=chatNameInput.value.trim().replace(/\s+/g,' ');
+            if(nameVal.length>=2){userName=nameVal.slice(0,30);localStorage.setItem('adonay_chat_user',userName);userSetupDiv.style.display='none';chatInputGroup.style.display='flex';chatMsgInput.focus();}
+            else alert('Por favor ingresá un nombre válido.');
         });
 
-        chatMsgInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMsgBtn.click();
-            }
-        });
+        let sending=false,lastSendAt=0;
+        async function sendChatMessage(){
+            if(!db||sending)return;
+            const msgVal=chatMsgInput.value.trim().replace(/\s+/g,' ');
+            if(!msgVal||!userName)return;
+            if(msgVal.length>300){alert('Máximo 300 caracteres.');return;}
+            const now=Date.now(); if(now-lastSendAt<2500){alert('Esperá unos segundos antes de enviar otro mensaje.');return;}
+            sending=true;sendMsgBtn.disabled=true;sendMsgBtn.textContent='Enviando…';
+            const {error}=await db.from(CHAT_TABLE).insert({author:userName,message:msgVal,is_admin:false});
+            sending=false;sendMsgBtn.disabled=false;sendMsgBtn.textContent='Enviar';
+            if(error){console.error(error);alert('No se pudo enviar el mensaje.');return;}
+            lastSendAt=now;chatMsgInput.value='';chatMsgInput.focus();
+        }
+        sendMsgBtn.addEventListener('click',sendChatMessage);
+        chatMsgInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendChatMessage();}});
+        loadMessages();
+        subscribeToMessages();
     </script>
 </body>
 </html>
