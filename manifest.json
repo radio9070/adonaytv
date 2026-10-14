@@ -9,12 +9,27 @@
   "background_color": "#0b0b0b",
   "theme_color": "#d4af37",
   "orientation": "portrait",
+
   "icons": [
     {
       "src": "https://i.imgur.com/byh5rIh.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    }
+  ],
+
+  "screenshots": [
+    {
+      "src": "https://i.imgur.com/FsmbTRp.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "https://i.imgur.com/Rnj02Ui.png",
+      "sizes": "390x844",
+      "type": "image/png"
     }
   ]
 }
