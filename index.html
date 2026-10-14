@@ -1249,7 +1249,7 @@
     <div class="pwa-icons">📱 💻</div>
     <strong>INSTALAR ADONAY TV</strong>
     <span>Descargá nuestro canal en tu celular o computadora</span>
-    <button id="installAdonayBtn">INSTALAR AHORA</button>
+    <button id="installAdonayBtn" style="display:block;">INSTALAR AHORA</button>
 </div>
 
 <style>
@@ -1802,25 +1802,39 @@
         loadMessages();
         setInterval(loadMessages,15000);
 
-        // PWA
-        let installEvent;
-        window.addEventListener('beforeinstallprompt', e=>{
-            e.preventDefault();
-            installEvent=e;
-            const btn=document.getElementById('installAdonayBtn');
-            if(btn) btn.style.display='block';
-        });
+        // PWA INSTALACION ADONAY TV
+let installEvent = null;
 
-        window.installAdonay=function(){
-            if(installEvent){
-                installEvent.prompt();
-                installEvent=null;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    installEvent = e;
+
+    const btn = document.getElementById('installAdonayBtn');
+    if (btn) {
+        btn.style.display = 'block';
+        btn.onclick = async function () {
+            if (!installEvent) {
+                alert('La instalación no está disponible todavía. Abrí la página en Chrome y volvé a intentar.');
+                return;
             }
-        };
 
-        if('serviceWorker' in navigator){
-            navigator.serviceWorker.register('/sw.js');
-        }
+            installEvent.prompt();
+
+            const result = await installEvent.userChoice;
+            console.log('Resultado instalación:', result.outcome);
+
+            installEvent = null;
+        };
+    }
+});
+
+window.addEventListener('appinstalled', () => {
+    console.log('Adonay TV instalada correctamente');
+});
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js');
+}
     </script>
 
 </html>
