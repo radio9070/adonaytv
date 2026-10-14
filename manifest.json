@@ -10,14 +10,14 @@
   "orientation": "portrait",
   "icons": [
     {
-      "src": "/image/adonay-icon.png",
+      "src": "https://i.imgur.com/nTo5JSD.jpeg",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/jpeg"
     },
     {
-      "src": "/image/adonay-icon.png",
+      "src": "https://i.imgur.com/nTo5JSD.jpeg",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/jpeg"
     }
   ]
 }
