@@ -17,6 +17,7 @@
     <!-- Favicon -->
     <link rel="icon" href="https://i.imgur.com/nTo5JSD.jpeg" type="image/jpeg">
     <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d8b75a">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
@@ -1243,6 +1244,51 @@
                     <a href="#jc-records" onclick="showTab('jc-records', event)" class="btn-whatsapp" style="background-color: var(--accent-color); color: #000;">Conocé los Servicios</a>
                 </div>
 
+<!-- BOTON PWA UBICADO EN REDES -->
+<div class="adonay-pwa-redes">
+    <div class="pwa-icons">📱 💻</div>
+    <strong>INSTALAR ADONAY TV</strong>
+    <span>Descargá nuestro canal en tu celular o computadora</span>
+    <button id="installAdonayBtn">INSTALAR AHORA</button>
+</div>
+
+<style>
+.adonay-pwa-redes{
+    margin-top:18px;
+    padding:18px 14px;
+    text-align:center;
+    border-radius:16px;
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(216,183,90,.30);
+}
+.pwa-icons{
+    font-size:30px;
+    margin-bottom:8px;
+}
+.adonay-pwa-redes strong{
+    display:block;
+    color:#d8b75a;
+    font-size:.9rem;
+    letter-spacing:1px;
+}
+.adonay-pwa-redes span{
+    display:block;
+    color:#bbb;
+    font-size:.78rem;
+    margin:8px 0 12px;
+}
+#installAdonayBtn{
+    border:0;
+    border-radius:999px;
+    padding:11px 20px;
+    font-weight:800;
+    cursor:pointer;
+    background:#f2efe5;
+    color:#08090a;
+}
+</style>
+
+
                 <div class="widget">
                     <h3>Publicidad y Contacto</h3>
                     <a href="https://wa.me/5491171424693?text=Hola,%20quiero%20publicitar%20en%20Adonay%20TV%20y%20Radio" target="_blank" class="btn-whatsapp">
@@ -1666,93 +1712,181 @@
         // YouTube se abre mediante el enlace permanente /live del canal.
         // No requiere API Key y evita dependencias externas para detectar la transmisión.
 
-        // CHAT PERSISTENTE CON SUPABASE
-        const SUPABASE_URL = 'PEGA_AQUI_TU_SUPABASE_URL';
-        const SUPABASE_ANON_KEY = 'PEGA_AQUI_TU_SUPABASE_ANON_KEY';
-        const CHAT_TABLE = 'chat_messages';
-        const MAX_MESSAGES = 100;
+        // CHAT PERSISTENTE CON GOOGLE SHEETS
+        const ADONAY_CHAT_URL = "https://script.google.com/macros/s/AKfycbxrz6UN-4VcE71hrcBGOMd8LukFUNvYF8VhsgIOAFSIH557L7cM7JUtTLBQ-5HnjRi4/exec";
 
-        let userName = localStorage.getItem('adonay_chat_user') || '';
-        const userSetupDiv = document.getElementById('userSetup');
-        const chatInputGroup = document.getElementById('chatInputGroup');
         const chatNameInput = document.getElementById('chatNameInput');
         const saveNameBtn = document.getElementById('saveNameBtn');
         const chatMsgInput = document.getElementById('chatMsgInput');
         const sendMsgBtn = document.getElementById('sendMsgBtn');
         const chatMessages = document.getElementById('chatMessages');
+        const userSetupDiv = document.getElementById('userSetup');
+        const chatInputGroup = document.getElementById('chatInputGroup');
         const chatStatus = document.getElementById('chatStatus');
 
-        const supabaseConfigured = SUPABASE_URL.startsWith('https://') && !SUPABASE_URL.includes('PEGA_AQUI') && SUPABASE_ANON_KEY.length > 30 && !SUPABASE_ANON_KEY.includes('PEGA_AQUI');
-        const db = supabaseConfigured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY) : null;
+        let userName = localStorage.getItem('adonay_chat_user') || '';
 
-        function setChatStatus(text, state = '') {
-            chatStatus.textContent = text;
-            chatStatus.className = 'chat-status' + (state ? ' ' + state : '');
-        }
-
-        function formatMessageDate(dateValue) {
-            return new Intl.DateTimeFormat('es-AR', {day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit'}).format(new Date(dateValue));
-        }
-
-        function renderMessage(message) {
-            if (!message || !message.author || !message.message) return;
-            if (message.id && chatMessages.querySelector(`[data-message-id="${message.id}"]`)) return;
-            const loading = document.getElementById('chatLoading'); if (loading) loading.remove();
-            const empty = chatMessages.querySelector('.chat-empty'); if (empty) empty.remove();
-            const msgDiv = document.createElement('div');
-            msgDiv.className = message.is_admin ? 'chat-msg admin' : 'chat-msg';
-            if (message.id) msgDiv.dataset.messageId = message.id;
-            const authorSpan = document.createElement('span'); authorSpan.className='author'; authorSpan.textContent=message.author+':';
-            const textSpan = document.createElement('span'); textSpan.className='text'; textSpan.textContent=' '+message.message;
-            const meta = document.createElement('span'); meta.className='meta'; meta.textContent=message.created_at ? formatMessageDate(message.created_at) : '';
-            msgDiv.append(authorSpan,textSpan,meta);
-            chatMessages.appendChild(msgDiv);
-            while (chatMessages.querySelectorAll('.chat-msg').length > MAX_MESSAGES) chatMessages.querySelector('.chat-msg')?.remove();
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        async function loadMessages() {
-            if (!db) {
-                chatMessages.innerHTML='<div class="chat-empty">El chat está preparado. Falta conectar Supabase para guardar mensajes de todos los visitantes.</div>';
-                setChatStatus('Falta configurar','error'); sendMsgBtn.disabled=true; return;
+        function setChatStatus(text, state=''){
+            if(chatStatus){
+                chatStatus.textContent=text;
+                chatStatus.className='chat-status '+state;
             }
-            const {data,error}=await db.from(CHAT_TABLE).select('id, author, message, is_admin, created_at').order('created_at',{ascending:false}).limit(MAX_MESSAGES);
-            if (error) { console.error(error); chatMessages.innerHTML='<div class="chat-empty">No pudimos cargar los mensajes.</div>'; setChatStatus('Sin conexión','error'); return; }
-            chatMessages.innerHTML='';
-            (data||[]).reverse().forEach(renderMessage);
-            if (!data || !data.length) chatMessages.innerHTML='<div class="chat-empty">Todavía no hay mensajes. ¡Sé el primero en saludar!</div>';
-            setChatStatus('En línea','online');
         }
 
-        function subscribeToMessages() {
-            if (!db) return;
-            db.channel('public-chat').on('postgres_changes',{event:'INSERT',schema:'public',table:CHAT_TABLE},payload=>renderMessage(payload.new)).subscribe(status=>{if(status==='SUBSCRIBED')setChatStatus('En línea','online');});
+        function renderSheetMessage(m){
+            const div=document.createElement('div');
+            div.className='chat-msg';
+            div.innerHTML=`
+              <span class="author">${m[0] || 'Invitado'}:</span>
+              <span class="text"> ${m[1] || ''}</span>
+              <span class="meta">${m[2] || ''} ${m[3] || ''}</span>`;
+            chatMessages.appendChild(div);
         }
 
-        if (userName) { userSetupDiv.style.display='none'; chatInputGroup.style.display='flex'; }
-        saveNameBtn.addEventListener('click',()=>{
-            const nameVal=chatNameInput.value.trim().replace(/\s+/g,' ');
-            if(nameVal.length>=2){userName=nameVal.slice(0,30);localStorage.setItem('adonay_chat_user',userName);userSetupDiv.style.display='none';chatInputGroup.style.display='flex';chatMsgInput.focus();}
-            else alert('Por favor ingresá un nombre válido.');
+        async function loadMessages(){
+            try{
+                const r=await fetch(ADONAY_CHAT_URL);
+                const data=await r.json();
+                chatMessages.innerHTML='';
+                data.slice(1).slice(-100).forEach(renderSheetMessage);
+                if(!chatMessages.children.length){
+                    chatMessages.innerHTML='<div class="chat-empty">Todavía no hay mensajes.</div>';
+                }
+                setChatStatus('En línea','online');
+            }catch(e){
+                console.error(e);
+                setChatStatus('Sin conexión','error');
+            }
+        }
+
+        if(userName){
+            userSetupDiv.style.display='none';
+            chatInputGroup.style.display='flex';
+        }
+
+        saveNameBtn?.addEventListener('click',()=>{
+            const n=chatNameInput.value.trim();
+            if(n.length>=2){
+                userName=n;
+                localStorage.setItem('adonay_chat_user',n);
+                userSetupDiv.style.display='none';
+                chatInputGroup.style.display='flex';
+            }
         });
 
-        let sending=false,lastSendAt=0;
         async function sendChatMessage(){
-            if(!db||sending)return;
-            const msgVal=chatMsgInput.value.trim().replace(/\s+/g,' ');
-            if(!msgVal||!userName)return;
-            if(msgVal.length>300){alert('Máximo 300 caracteres.');return;}
-            const now=Date.now(); if(now-lastSendAt<2500){alert('Esperá unos segundos antes de enviar otro mensaje.');return;}
-            sending=true;sendMsgBtn.disabled=true;sendMsgBtn.textContent='Enviando…';
-            const {error}=await db.from(CHAT_TABLE).insert({author:userName,message:msgVal,is_admin:false});
-            sending=false;sendMsgBtn.disabled=false;sendMsgBtn.textContent='Enviar';
-            if(error){console.error(error);alert('No se pudo enviar el mensaje.');return;}
-            lastSendAt=now;chatMsgInput.value='';chatMsgInput.focus();
+            const msg=chatMsgInput.value.trim();
+            if(!msg)return;
+
+            await fetch(ADONAY_CHAT_URL,{
+                method:'POST',
+                mode:'no-cors',
+                body:JSON.stringify({
+                    nombre:userName || 'Invitado',
+                    mensaje:msg
+                })
+            });
+
+            chatMsgInput.value='';
+            setTimeout(loadMessages,1200);
         }
-        sendMsgBtn.addEventListener('click',sendChatMessage);
-        chatMsgInput.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();sendChatMessage();}});
+
+        sendMsgBtn?.addEventListener('click',sendChatMessage);
+        chatMsgInput?.addEventListener('keydown',e=>{
+            if(e.key==='Enter'){
+                e.preventDefault();
+                sendChatMessage();
+            }
+        });
+
         loadMessages();
-        subscribeToMessages();
+        setInterval(loadMessages,15000);
+
+        // PWA
+        let installEvent;
+        window.addEventListener('beforeinstallprompt', e=>{
+            e.preventDefault();
+            installEvent=e;
+            const btn=document.getElementById('installAdonayBtn');
+            if(btn) btn.style.display='block';
+        });
+
+        window.installAdonay=function(){
+            if(installEvent){
+                installEvent.prompt();
+                installEvent=null;
+            }
+        };
+
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('service-worker.js');
+        }
     </script>
+
+<div id="adonayInstallArea" style="text-align:center;margin:20px 0;">
+<button id="installAdonayBtn" onclick="installAdonay()" style="display:none;padding:12px 22px;border-radius:999px;border:0;background:#d8b75a;color:#080808;font-weight:800;cursor:pointer;">
+📱💻 INSTALAR ADONAY TV
+</button>
+</div>
+
+
+<script>
+let adonayInstallPrompt = null;
+
+window.addEventListener("beforeinstallprompt", function(e){
+    e.preventDefault();
+    adonayInstallPrompt = e;
+    const btn = document.getElementById("installAdonayBtn");
+    if(btn) btn.style.display = "block";
+});
+
+document.addEventListener("DOMContentLoaded", function(){
+    const btn = document.getElementById("installAdonayBtn");
+    if(btn){
+        btn.addEventListener("click", async function(){
+            if(adonayInstallPrompt){
+                adonayInstallPrompt.prompt();
+                await adonayInstallPrompt.userChoice;
+                adonayInstallPrompt = null;
+            }
+        });
+    }
+
+    if("serviceWorker" in navigator){
+        navigator.serviceWorker.register("service-worker.js")
+        .catch(err=>console.log("PWA:",err));
+    }
+});
+</script>
+
+
+
+
+
+<script>
+let adonayInstallPrompt=null;
+window.addEventListener("beforeinstallprompt",e=>{
+ e.preventDefault();
+ adonayInstallPrompt=e;
+});
+document.addEventListener("DOMContentLoaded",()=>{
+ const b=document.getElementById("installAdonayBtn");
+ if(b){
+  b.onclick=async()=>{
+   if(adonayInstallPrompt){
+    adonayInstallPrompt.prompt();
+    await adonayInstallPrompt.userChoice;
+    adonayInstallPrompt=null;
+   }else{
+    alert("Abrí el menú del navegador y elegí Instalar aplicación o Agregar a pantalla de inicio.");
+   }
+  };
+ }
+ if("serviceWorker" in navigator){
+  navigator.serviceWorker.register("service-worker.js");
+ }
+});
+</script>
+
 </body>
 </html>
